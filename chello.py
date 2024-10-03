@@ -1,2 +1,2 @@
 def run():
-    return "Chello er best"
+    return "<h1>Chello er best</h1>"
