@@ -28,6 +28,3 @@ def about():
 # Run the application
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=5502, debug=True)
-
-#  git config --global user.email "you@example.com"
-#  git config --global user.name "Your Name"
