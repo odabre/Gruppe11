@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     html = "<h1>Andreas er mye bedre enn Nicolai</h1><p>Denne nettsiden inneholder fakta</p>"
-    j = "<h2>Men Johanne er best<h1>"
+    j = "<h2>Men Johanne er best<h2>"
     
     currentDateAndTime = datetime.now()
 
