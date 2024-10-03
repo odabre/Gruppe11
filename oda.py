@@ -1,2 +1,2 @@
 def run():
-    return "<h1> Oda er best"
+    return "<h1> Oda er best</h1>"
