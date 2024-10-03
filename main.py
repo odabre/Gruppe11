@@ -11,13 +11,14 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     html = "<h1>Andreas er mye bedre enn Nicolai</h1><p>Denne nettsiden inneholder fakta</p>"
+    j = "<h2>Men Johanne er best<h1>"
     
     currentDateAndTime = datetime.now()
 
     html += "The current date and time is  " + str(currentDateAndTime)
     for i in range(1,101):
         html += "<h3>Dette er linje nr: " + str(i) + "<h3>"
-    return html
+    return html,j
 
 # Define a route for a custom page
 @app.route('/about')
