@@ -15,7 +15,7 @@ def home():
     currentDateAndTime = datetime.now()
 
     html += "The current date and time is  " + str(currentDateAndTime)
-    for i in range(100):
+    for i in range(1,101):
         html += "<h3>Dette er linje nr: " + str(i) + "<h3>"
     return html
 
