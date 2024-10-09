@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     html = "<h1>Andreas er mye bedre enn Nicolai</h1><p>Denne nettsiden inneholder fakta</p>"
-    html += "<h2>Men Johanne og gruppe 9 er bes!<h2>"
+    html += "<h2>Men Johanne og gruppe 9 er best!<h2>"
     html += """<a href="oda"> Oda</a> <a href="chello"> chello </a>"""
     
     currentDateAndTime = datetime.now()
