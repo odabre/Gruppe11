@@ -1,0 +1,17 @@
+body {
+    background-color: green;
+}
+.link-container{
+    display: flex;
+    gap: 20px;
+}
+p.bold {
+    font-weight: bold;
+}
+.blåfarge {
+    color: green
+}
+.headers {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
