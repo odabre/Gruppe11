@@ -4,7 +4,7 @@ from time import time
 import chello
 import oda
 # Create an instance of the Flask class
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 
 
