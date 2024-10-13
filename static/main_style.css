@@ -2,16 +2,24 @@ body {
     background-color: lightblue;
 }
 .link-container{
+    position: absolute;
     display: flex;
     gap: 20px;
+    text-align: right;
+    z-index: 2;
 }
 p.bold {
     font-weight: bold;
 }
-.blåfarge {
-    color: green
-}
 .headers {
     font-family: Arial, Helvetica, sans-serif;
 }
-
+.farget-boks {
+    position: absolute;
+    width: 300px;               /* Bredde på boksen */
+    height: 100px; 
+    background-color: darkblue;             /* Høyde på boksen */
+    right: 520cm;
+    border: 2px solid darkblue; /* Valgfri kantlinje */
+    z-index: 1;
+}
