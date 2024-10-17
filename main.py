@@ -23,6 +23,11 @@ def oda_func():
 def chello_func():
     return render_template("chello.html")
 
+#Kan vi få denne til å fungere?
+@app.route('/sensor')
+def sensor_func():
+    return render_template("sensor.html")
+
 # Run the application
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=5502, debug=True)

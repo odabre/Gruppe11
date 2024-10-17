@@ -14,11 +14,9 @@ body {
 }
 
 .content {
-    /*margin-left: 25%; /* Hindrer at innholdet overlapper sidebaren */
     flex-grow: 1; /* Sørger for at content tar opp gjenværende plass*/
     padding: 20px;
     white-space: normal; /* Tillater vanlig tekstbryting */
-    /*width: 100%; /* Sørg for at containeren har full bredde */
     text-align: center;
     box-sizing: border-box; /* Hindrer at padding påvirker bredden */
 }
@@ -60,7 +58,6 @@ p.bold {
     color: white;
 }
 
-/* for at lenkene skal endre farge ved hover */
 .sidebar ul li a:hover {
     text-decoration: underline; /* Understreking ved hover */
     color: lightgray; /* Endre fargen ved hover */
@@ -71,6 +68,4 @@ footer {
     text-align: center;
     width: 100%;
     flex-shrink: 0; /* Hindrer at footeren krymper og holder den nederst*/
-    /*position: relative; /*Sikrer at den forblir på bunnen når innholdet ikke fyller hele siden*/
-    /*bottom: 0;*/
 }
