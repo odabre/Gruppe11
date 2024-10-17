@@ -1,5 +1,7 @@
 body{
     background-color: lightblue;
+    margin: 0;  /* Fjerner standard margin */
+    padding: 0; /* Fjerner standard padding */
 }
 .pink {
     color: hotpink;
