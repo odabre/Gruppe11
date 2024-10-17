@@ -8,11 +8,11 @@ body {
 .content {
     margin-left: 25%; /* Hindrer at innholdet overlapper sidebaren */
     padding: 20px;
+    text-align: center;
 }
 
 h1 {
-    color: rgb(2, 77, 102);
-    text-align: center;
+    color: rgb(2, 77, 102); 
 }
 
 p.bold {
@@ -51,4 +51,11 @@ p.bold {
 .sidebar ul li a:hover {
     text-decoration: underline; /* Understreking ved hover */
     color: lightgray; /* Endre fargen ved hover */
+}
+footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    margin-top: auto;
+    width: 100%;
 }
