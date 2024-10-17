@@ -8,6 +8,8 @@ body {
 .content {
     margin-left: 25%; /* Hindrer at innholdet overlapper sidebaren */
     padding: 20px;
+    white-space: normal; /* Tillater vanlig tekstbryting */
+    width: 100%; /* Sørg for at containeren har full bredde */
     text-align: center;
 }
 
