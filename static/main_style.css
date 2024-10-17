@@ -34,6 +34,14 @@ p.bold {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.logo {
+    width: 100%; /* Setter bredden til 25% av sidebaren */
+    max-width: 200px; /* Maksimal størrelse på logoen*/
+    height: auto; /* Beholder proporsjonene til bildet */
+    display: block; /* Gjør logoen til et blokkelement*/
+    margin-bottom: 20px; /* Avstand fra innholdet under*/
+}
+
 .sidebar {
     width: 25%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
