@@ -10,9 +10,16 @@ body {
     padding: 20px;
 }
 
+h1 {
+    color: darkblue;
+    text-align: center;
+}
+
 p.bold {
     font-weight: bold;
+    
 }
+
 .headers {
     font-family: Arial, Helvetica, sans-serif;
 }
