@@ -9,13 +9,13 @@ body {
 
 .main {
     display: flex;
-    flex: 1;
+    flex: 1; /* Gjør at .main strekker seg for å fylle ledig plass */
     width: 100%;
 }
 
 .content {
     /*margin-left: 25%; /* Hindrer at innholdet overlapper sidebaren */
-    flex-grow: 1;
+    flex-grow: 1; /* Sørger for at content tar opp gjenværende plass*/
     padding: 20px;
     white-space: normal; /* Tillater vanlig tekstbryting */
     /*width: 100%; /* Sørg for at containeren har full bredde */
@@ -37,10 +37,10 @@ p.bold {
 }
 
 .sidebar {
-    width: 50%; /* Bredden på sidebaren */
+    width: 25%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
     padding: 20px;
-    height: 100vh; /* Gjør at sidebaren fyller hele høyden */
+    height: auto; /* Gjør at sidebaren fyller hele høyden, tilpasset innholdet */
     box-sizing: border-box;
 }  
 
@@ -70,6 +70,7 @@ footer {
     padding: 10px;
     text-align: center;
     width: 100%;
+    flex-shrink: 0; /* Hindrer at footeren krymper og holder den nederst*/
     /*position: relative; /*Sikrer at den forblir på bunnen når innholdet ikke fyller hele siden*/
     /*bottom: 0;*/
 }
