@@ -15,3 +15,33 @@ img{
     top: 200px;
     left: 200px;
 }
+
+.sidebar {
+    width: 20%; /* Bredden på sidebaren */
+    background-color: darkblue; /* Lys grå bakgrunn */
+    padding: 20px;
+    height: 100vh; /* Gjør at sidebaren fyller hele høyden */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Litt skygge for dybde */
+}
+
+.sidebar ul {
+    list-style-type: none; /* Fjern punktlister */
+    padding: 0;    /* avstanden mellom innholdet (for eksempel tekst eller bilder) */
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 30px; /* Øker mellomrommet mellom lenkene */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    font-size: 1.5em; /* Øker størrelsen på lenkene */
+    color: white;
+}
+
+/* for at lenkene skal endre farge ved hover */
+.sidebar ul li a:hover {
+    text-decoration: underline; /* Understreking ved hover */
+    color: lightgray; /* Endre fargen ved hover */
+}
