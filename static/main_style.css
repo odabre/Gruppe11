@@ -1,7 +1,7 @@
 body {
     background-color: lightblue;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 0;  /* Fjerner standard margin */
     padding: 0; /* Fjerner standard padding */
     min-height: 100vh; /* Sikrer at body fyller hele vindushøyden */
@@ -14,10 +14,11 @@ body {
 }
 
 .content {
-    margin-left: 25%; /* Hindrer at innholdet overlapper sidebaren */
+    /*margin-left: 25%; /* Hindrer at innholdet overlapper sidebaren */
+    flex-grow: 1;
     padding: 20px;
     white-space: normal; /* Tillater vanlig tekstbryting */
-    width: 100%; /* Sørg for at containeren har full bredde */
+    /*width: 100%; /* Sørg for at containeren har full bredde */
     text-align: center;
     box-sizing: border-box; /* Hindrer at padding påvirker bredden */
 }
@@ -69,6 +70,6 @@ footer {
     padding: 10px;
     text-align: center;
     width: 100%;
-    position: relative; /*Sikrer at den forblir på bunnen når innholdet ikke fyller hele siden*/
-    bottom: 0;
+    /*position: relative; /*Sikrer at den forblir på bunnen når innholdet ikke fyller hele siden*/
+    /*bottom: 0;*/
 }
