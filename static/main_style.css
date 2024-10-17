@@ -27,7 +27,7 @@ p.bold {
 }
 
 .sidebar {
-    width: 20%; /* Bredden på sidebaren */
+    width: 50%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Lys grå bakgrunn */
     padding: 20px;
     height: 100vh; /* Gjør at sidebaren fyller hele høyden */
