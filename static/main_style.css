@@ -43,7 +43,7 @@ p.bold {
 }
 
 .sidebar {
-    width: 25%; /* Bredden på sidebaren */
+    width: 20%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
     padding: 20px;
     height: auto; /* Gjør at sidebaren fyller hele høyden, tilpasset innholdet */
