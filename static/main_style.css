@@ -22,12 +22,11 @@ p.bold {
     background-color: darkblue; /* Lys grå bakgrunn */
     padding: 20px;
     height: 100vh; /* Gjør at sidebaren fyller hele høyden */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Litt skygge for dybde */
 }
 
 .sidebar ul {
     list-style-type: none; /* Fjern punktlister */
-    padding: 0;    /* avstanden mellom innholdet (for eksempel tekst eller bilder) */
+    padding: 10%;    /* avstanden mellom innholdet (for eksempel tekst eller bilder) */
     margin: 0;
 }
 
