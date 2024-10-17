@@ -1,8 +1,16 @@
 body {
     background-color: lightblue;
     display: flex;
+    flex-direction: row;
     margin: 0;  /* Fjerner standard margin */
     padding: 0; /* Fjerner standard padding */
+    min-height: 100vh; /* Sikrer at body fyller hele vindushøyden */
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    width: 100%;
 }
 
 .content {
@@ -11,6 +19,7 @@ body {
     white-space: normal; /* Tillater vanlig tekstbryting */
     width: 100%; /* Sørg for at containeren har full bredde */
     text-align: center;
+    box-sizing: border-box; /* Hindrer at padding påvirker bredden */
 }
 
 h1 {
@@ -28,10 +37,11 @@ p.bold {
 
 .sidebar {
     width: 50%; /* Bredden på sidebaren */
-    background-color: rgb(2, 77, 102); /* Lys grå bakgrunn */
+    background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
     padding: 20px;
     height: 100vh; /* Gjør at sidebaren fyller hele høyden */
-}
+    box-sizing: border-box;
+}  
 
 .sidebar ul {
     list-style-type: none; /* Fjern punktlister */
@@ -58,6 +68,7 @@ footer {
     background-color: #f1f1f1;
     padding: 10px;
     text-align: center;
-    margin-top: auto;
     width: 100%;
+    position: relative; /*Sikrer at den forblir på bunnen når innholdet ikke fyller hele siden*/
+    bottom: 0;
 }
