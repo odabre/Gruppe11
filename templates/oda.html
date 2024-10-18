@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Oda</title>
+        <title>PH</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
     </head>
     <body>
@@ -10,10 +10,15 @@
                     <img src="{{url_for('static', filename='487BDFE8-69CE-4ACF-858A-F14382F42528_4_5005_c.jpeg') }}" alt="Logo" class="logo">
                 </a>
                 <ul>
-                    <li><a href="/oda">Gå til Oda</a></li>
-                    <li><a href="/chello">Gå til Chello</a></li>
-                    <li><a href="/sensor">Gå til sensor</a></li>
-                </ul>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Sensorer</a>
+                        <ul class="dropdown">
+                            <li><a href="/oda">PH</a></li>
+                            <li><a href="/chello">Temperatur</a></li>
+                            <li><a href="/sensor">Total dissolved solids</a></li>
+                            <li><a href="/nr1">Turbiditet</a></li>
+                        </ul>
+                    <li><a href="/nr2">Gå til Nr2</a></li>
             </aside>
             <div class = "content">
                 <h1>PH-sensor</h1>

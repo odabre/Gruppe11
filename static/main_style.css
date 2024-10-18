@@ -42,6 +42,7 @@ p.bold {
     margin-bottom: 20px; /* Avstand fra innholdet under*/
 }
 
+/* Sidebar*/
 .sidebar {
     width: 20%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
@@ -70,6 +71,20 @@ p.bold {
     text-decoration: underline; /* Understreking ved hover */
     color: lightgray; /* Endre fargen ved hover */
 }
+
+
+/* Dropdown*/
+.dropdown {
+    display: none; /* Skjuler dropdown-menyen som standard */
+}
+
+.sidebar li:hover .dropdown,
+.sidebar li:focus-within .dropdown {
+    display: block; /* Viser dropdown-menyen når hover/klikk skjer */
+}
+
+
+
 footer {
     background-color: rgb(96, 160, 182);
     padding: 10px;

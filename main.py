@@ -23,10 +23,18 @@ def oda_func():
 def chello_func():
     return render_template("chello.html")
 
-#Kan vi få denne til å fungere?
+
 @app.route('/sensor')
 def sensor_func():
     return render_template("sensor.html")
+
+@app.route('/nr1')
+def nr1_func():
+    return render_template("nr1.html")
+
+@app.route('/nr2')
+def nr2_func():
+    return render_template("nr2.html")
 
 # Run the application
 if __name__ == '__main__':
