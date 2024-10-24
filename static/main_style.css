@@ -44,8 +44,8 @@ p.bold {
 }
 
 .facebook {
-    width: 50px; /* Setter bredden til 25% av sidebaren */
-    max-width: 200px; /* Maksimal størrelse på logoen*/
+    width: 90%; /* Setter bredden til 25% av sidebaren */
+    max-width: 50px; /* Maksimal størrelse på logoen*/
     height: auto; /* Beholder proporsjonene til bildet */
     display: block; /* Gjør logoen til et blokkelement*/
     margin-bottom: 20px; /* Avstand fra innholdet under*/
@@ -53,8 +53,8 @@ p.bold {
 }
 
 .instagram {
-    width: 50px; /* Setter bredden til 25% av sidebaren */
-    max-width: 200px; /* Maksimal størrelse på logoen*/
+    width: 90%; /* sidebaren */
+    max-width: 50px; /* Maksimal størrelse på logoen*/
     height: auto; /* Beholder proporsjonene til bildet */
     display: block; /* Gjør logoen til et blokkelement*/
     margin-bottom: 20px; /* Avstand fra innholdet under*/
@@ -62,8 +62,8 @@ p.bold {
 }
 
 .twitter {
-    width: 50px; /* Setter bredden til 25% av sidebaren */
-    max-width: 200px; /* Maksimal størrelse på logoen*/
+    width: 90%; /* Setter bredden til 25% av sidebaren */
+    max-width: 50px; /* Maksimal størrelse på logoen*/
     height: auto; /* Beholder proporsjonene til bildet */
     display: block; /* Gjør logoen til et blokkelement*/
     margin-bottom: 20px; /* Avstand fra innholdet under*/
@@ -77,7 +77,7 @@ p.bold {
     flex-direction: column;
     width: 20%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
-    padding: 20px;
+    padding: min(20px, 2vw);
     height: auto; /* Gjør at sidebaren fyller hele høyden, tilpasset innholdet */
     box-sizing: border-box;
     text-align: center;
@@ -133,6 +133,9 @@ footer {
     padding: 20px; /* Valgfritt, legger til litt avstand rundt containeren */
     margin-top: 250%; /* Tvinger lenkene til bunnen av sidebaren */
     position: absolute; bottom: 20px;
+    max-width:100%;
+    box-sizing: border-box;
+    margin-left:-30px;
 }
 
 /* Gjør sidebar responsiv med media queries */
@@ -140,10 +143,16 @@ footer {
     .sidebar {
         width: 40%; /* På smalere skjermer blir sidebaren bredere */
     }
+
+
 }
 
 @media (max-width: 480px) {
     .sidebar {
         width: 60%; /* Enda bredere sidebar på veldig små skjermer */
+    }
+
+    .link-container  {
+        flex-direction: column;
     }
 }
