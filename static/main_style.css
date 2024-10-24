@@ -42,6 +42,14 @@ p.bold {
     margin-bottom: 20px; /* Avstand fra innholdet under*/
 }
 
+.facebook {
+    width: 100%; /* Setter bredden til 25% av sidebaren */
+    max-width: 200px; /* Maksimal størrelse på logoen*/
+    height: auto; /* Beholder proporsjonene til bildet */
+    display: block; /* Gjør logoen til et blokkelement*/
+    margin-bottom: 20px; /* Avstand fra innholdet under*/
+}
+
 /* Sidebar*/
 .sidebar {
     width: 20%; /* Bredden på sidebaren */
