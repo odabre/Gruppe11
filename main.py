@@ -19,18 +19,18 @@ def oda_func():
     return render_template("oda.html", liste = lol)
 
 
-@app.route('/chello')
+@app.route('/temperatur')
 def chello_func():
-    return render_template("chello.html")
+    return render_template("temperatur.html")
 
 
 @app.route('/sensor')
 def sensor_func():
     return render_template("sensor.html")
 
-@app.route('/nr1')
+@app.route('/turbiditet')
 def nr1_func():
-    return render_template("nr1.html")
+    return render_template("turbiditet.html")
 
 @app.route('/nr2')
 def nr2_func():
