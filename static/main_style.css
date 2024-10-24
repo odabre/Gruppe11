@@ -52,11 +52,12 @@ p.bold {
 }
 
 .instagram {
-    width: 5%; /* Setter bredden til 25% av sidebaren */
+    width: 50px; /* Setter bredden til 25% av sidebaren */
     max-width: 200px; /* Maksimal størrelse på logoen*/
     height: auto; /* Beholder proporsjonene til bildet */
     display: block; /* Gjør logoen til et blokkelement*/
     margin-bottom: 20px; /* Avstand fra innholdet under*/
+    border-radius: 50%;
 }
 
 .twitter {
