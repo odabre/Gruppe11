@@ -58,7 +58,7 @@ p.bold {
     margin-bottom: 20px; /* Avstand fra innholdet under*/
 }
 
-.x {
+.twitter {
     width: 100%; /* Setter bredden til 25% av sidebaren */
     max-width: 200px; /* Maksimal størrelse på logoen*/
     height: auto; /* Beholder proporsjonene til bildet */
