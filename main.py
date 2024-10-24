@@ -12,11 +12,10 @@ def run():
     return render_template("test.html")
 
 
-lol = ["nicolai", "oda", "chello"]
 
-@app.route('/oda')
+@app.route('/ph')
 def oda_func():
-    return render_template("oda.html", liste = lol)
+    return render_template("ph.html")
 
 
 @app.route('/temperatur')
