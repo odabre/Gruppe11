@@ -40,6 +40,7 @@ p.bold {
     height: auto; /* Beholder proporsjonene til bildet */
     display: block; /* Gjør logoen til et blokkelement*/
     margin-bottom: 20px; /* Avstand fra innholdet under*/
+    margin: 0 auto 20px auto; /* Sentrerer bildet horisontalt */
 }
 
 .facebook {
