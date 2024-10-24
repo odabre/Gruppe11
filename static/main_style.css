@@ -81,6 +81,7 @@ p.bold {
     height: auto; /* Gjør at sidebaren fyller hele høyden, tilpasset innholdet */
     box-sizing: border-box;
     text-align: center;
+    position: relative;
 }  
 
 .sidebar ul {
@@ -132,4 +133,5 @@ footer {
     gap: 20px; /* Mellomrom mellom bildene */
     padding: 20px; /* Valgfritt, legger til litt avstand rundt containeren */
     margin-top: 250%; /* Tvinger lenkene til bunnen av sidebaren */
+    position: absolute; bottom: 20px;
 }
