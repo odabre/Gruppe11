@@ -125,20 +125,11 @@ footer {
     flex-shrink: 0; /* Hindrer at footeren krymper og holder den nederst*/
 }
 
-/*.link-container {
-    display: flex;
-    justify-content: center; /* Sentrerer elementene horisontalt */
-    /*align-items: center; /* Sentrerer elementene vertikalt */
-   /* gap: 20px; /* Mellomrom mellom bildene */
-    /*padding: 20px; /* Valgfritt, legger til litt avstand rundt containeren */
-   /* margin-top: 250%; /* Tvinger lenkene til bunnen av sidebaren */
-   
-/*}*/
-
-.bottom-link {
+.link-container {
     display: flex;
     justify-content: center; /* Sentrerer elementene horisontalt */
     align-items: center; /* Sentrerer elementene vertikalt */
     gap: 20px; /* Mellomrom mellom bildene */
     padding: 20px; /* Valgfritt, legger til litt avstand rundt containeren */
-}
+    margin-top: 250%; /* Tvinger lenkene til bunnen av sidebaren */
+   }
