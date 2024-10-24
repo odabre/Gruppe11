@@ -140,7 +140,7 @@ footer {
 /* Gjør sidebar responsiv med media queries */
 @media (max-width: 768px) {
     .sidebar {
-        width: 40%; /* På smalere skjermer blir sidebaren bredere */
+        width: 20%; /* På smalere skjermer blir sidebaren bredere */
     }
 
 
@@ -148,7 +148,7 @@ footer {
 
 @media (max-width: 480px) {
     .sidebar {
-        width: 60%; /* Enda bredere sidebar på veldig små skjermer */
+        width: 20%; /* Enda bredere sidebar på veldig små skjermer */
     }
 
     .link-container  {
