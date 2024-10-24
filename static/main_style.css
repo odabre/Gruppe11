@@ -73,6 +73,8 @@ p.bold {
 
 /* Sidebar*/
 .sidebar {
+    display: flex;
+    flex-direction: column;
     width: 20%; /* Bredden på sidebaren */
     background-color: rgb(2, 77, 102); /* Mørk blå bakgrunn */
     padding: 20px;
@@ -129,4 +131,6 @@ footer {
     align-items: center; /* Sentrerer elementene vertikalt */
     gap: 20px; /* Mellomrom mellom bildene */
     padding: 20px; /* Valgfritt, legger til litt avstand rundt containeren */
+    margin-top: 250%; /* Tvinger lenkene til bunnen av sidebaren */
+   
 }
