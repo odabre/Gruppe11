@@ -35,9 +35,13 @@ def nr1_func():
 def nr2_func():
     return render_template("nr2.html")
 
+#function that we can call from other scripts to run the server in case we want to run the server even if __name__ != '__main__'
+def run_app():
+    app.run(host="127.0.0.1", port=5502, debug=True)
+    
 # Run the application
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=5502, debug=True)
+    run_app()
 
 #  git config --global user.email "you@example.com"
 #  git config --global user.name "Your Name"
