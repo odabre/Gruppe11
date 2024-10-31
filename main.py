@@ -12,7 +12,6 @@ def run():
     return render_template("test.html")
 
 
-
 @app.route('/ph')
 def oda_func():
     return render_template("ph.html")
