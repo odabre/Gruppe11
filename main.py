@@ -51,6 +51,21 @@ def uppdate_random_list():
 @app.route('/')
 def run():
     return render_template("test.html")
+
+
+@app.route('/ph')
+def oda_func():
+    return render_template("ph.html")
+
+
+@app.route('/temperatur')
+def chello_func():
+    return render_template("temperatur.html")
+
+
+@app.route('/sensor')
+def sensor_func():
+    return render_template("sensor.html")
 @app.route('/update')
 def update_data():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
@@ -71,20 +86,6 @@ def download_tds_data():
     csv_file.seek(0)
     # Send the CSV file as an attachment
     return send_file(csv_file, mimetype='text/csv', as_attachment=True, download_name="tds_data.csv")
-
-@app.route('/ph')
-def oda_func():
-    return render_template("ph.html")
-
-
-@app.route('/temperatur')
-def chello_func():
-    return render_template("temperatur.html")
-
-
-@app.route('/sensor')
-def sensor_func():
-    return render_template("sensor.html")
 
 @app.route('/turbiditet')
 def nr1_func():
