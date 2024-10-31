@@ -37,7 +37,7 @@ def nr2_func():
 
 #function that we can call from other scripts to run the server in case we want to run the server even if __name__ != '__main__'
 def run_app():
-    app.run(host="127.0.0.1", port=5502, debug=True)
+    app.run(host="0.0.0.0", port=5502, debug=True)
     
 # Run the application
 if __name__ == '__main__':
