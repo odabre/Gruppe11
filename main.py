@@ -3,12 +3,15 @@ from datetime import datetime
 from time import time
 from threading import Timer
 import numpy as np
+import pandas as pd
+import datetime
 import csv
 import random
 import chello
 import oda
 import os
 from io import StringIO
+from io import BytesIO
 # Create an instance of the Flask class
 
 app = Flask(__name__)
@@ -46,7 +49,20 @@ def uppdate_random_list():
         print(tds_data)
 
         
-        return tds_data
+        return pd.DataFrame(tds_data)
+def uppdate_list_graf():
+        global datagraf
+        random_number = random.randint(-10,10)
+        random_list.append(random_number)
+        timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        if len(random_list)>10:
+            random_list.pop(0)
+            timestamp.pop(0)
+        datagraf = {
+            "tds": random_list,
+            "timestamp": timestamp
+            }
+        return datagraf
 
 @app.route('/')
 def run():
@@ -66,26 +82,27 @@ def chello_func():
 @app.route('/sensor')
 def sensor_func():
     return render_template("sensor.html")
+@app.route('/download-csv')
+def download_csv():
+    # Generer DataFrame
+    df = uppdate_random_list()
+
+    # Lagre DataFrame som CSV i minnet (StringIO)
+    csv_data = BytesIO()
+    df.to_csv(csv_data, index=False)
+    csv_data.seek(0)  # Sett tilbake filpekeren til starten
+
+    # Send CSV-filen som et vedlegg
+    return send_file(csv_data, mimetype='text/csv', as_attachment=True, download_name="data.csv")
+
 @app.route('/update')
 def update_data():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
-    uppdate_random_list()
+    uppdate_list_graf()
     # Returnerer dataen i JSON-format
-    return jsonify(tds_data)
-@app.route('/download-tds-data', methods=['GET'])
-def download_tds_data():
-    # Create a CSV file in memory
-    csv_file = StringIO()
-    csv_writer = csv.writer(csv_file)
-    csv_writer.writerow(["TDS", "Timestamp"])  # CSV header
+    return jsonify(datagraf)
 
-    # Write each entry in `tds_data`
-    for tds, timestamp in zip(tds_data["tds"], tds_data["timestamp"]):
-        csv_writer.writerow([tds, timestamp])
 
-    csv_file.seek(0)
-    # Send the CSV file as an attachment
-    return send_file(csv_file, mimetype='text/csv', as_attachment=True, download_name="tds_data.csv")
 
 @app.route('/turbiditet')
 def nr1_func():

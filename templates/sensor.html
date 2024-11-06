@@ -2,6 +2,7 @@
     <head>
         <title>Total Dissolved Solids</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <div class="main">
@@ -37,24 +38,16 @@
             </div>
         </div>
         <div>
-            <h1>TDS Data Display</h1>
-            <p>Click the button below to download the TDS data as a CSV file.</p>
-            <a href="/download-tds-data" download>
-                <button>Download TDS Data</button>
-            </a>
-        
-            <!-- Table to display TDS data -->
+            <h1>Last ned Pandas CSV</h1>
             <table border="1">
                 <tbody id="data-table">
                     <!-- Data will be populated here -->
                 </tbody>
             </table>
-        
-            <!-- Canvas for the graph -->
-            <p id="tds">Venter på data...</p>
+            <a href="/download-csv">Klikk her for å laste ned CSV</a>
             <canvas id = "myChart" width="200" height = "100"></canvas>
-        </div>
 
+        </div>
         <script>
             const ctx = document.getElementById("myChart").getContext("2d");
             const myChart = new Chart(ctx, {
@@ -71,13 +64,12 @@
                 },
                 options:{
                     scales:{
-                        y:{
+                         y:{
                             beginAtZero:true,
                             title:{
                                 display: true,
                                 text: "total disolved solids (ppm)"
                             }
-        
                         },
                         x:{
                             title:{
@@ -88,30 +80,35 @@
                     }
                 }
             });
-            function update_chart() {
-            fetch("/update")
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Update the chart with new data
-                    myChart.data.labels = data.tds.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
-                    myChart.data.datasets[0].data = data.tds; // Assuming 'tds' contains your y-axis data
-        
-                    // Log received data for debugging
-                    console.log('Data mottatt:', data);
-        
-                    myChart.update(); // Update the chart
-                })
+            
+                function update_chart() {
+                    fetch("/update")
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(datagraf => {
+                        // Update the chart with new data
+                        myChart.data.labels = datagraf.tds.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
+                        myChart.data.datasets[0].data = datagraf.tds; // Assuming 'tds' contains your y-axis data
+                        // Log received data for debugging
+                        console.log('Data mottatt:', datagraf);
+                        myChart.update(); // Update the chart
+                        })
+                    fetch('/download-tds-data')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
                 .catch(error => console.error("Feil ved henting av data:", error));
-        }
-        
-        
+                }
                 // Run the function on page load and update every 5 seconds
                 setInterval(update_chart, 5000);
+                
         </script>
     </body>
 </html>
