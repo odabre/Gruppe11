@@ -33,21 +33,18 @@
                     </div>
             </aside>
             <div class = "content">
-                <h1>Sensor side?</h1>
-                <p>Jadda</p>
+                <h1>Last ned Pandas CSV</h1>
+                    <table border="1">
+                        <tbody id="data-table">
+                            <!-- Data will be populated here -->
+                        </tbody>
+                    </table>
+                    <a href="/download-csv">Klikk her for å laste ned tds data</a>
+                    <canvas id = "myChart" width="200" height = "100"></canvas>
+
             </div>
         </div>
-        <div>
-            <h1>Last ned Pandas CSV</h1>
-            <table border="1">
-                <tbody id="data-table">
-                    <!-- Data will be populated here -->
-                </tbody>
-            </table>
-            <a href="/download-csv">Klikk her for å laste ned CSV</a>
-            <canvas id = "myChart" width="200" height = "100"></canvas>
 
-        </div>
         <script>
             const ctx = document.getElementById("myChart").getContext("2d");
             const myChart = new Chart(ctx, {

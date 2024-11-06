@@ -33,12 +33,11 @@ def receive_data():
 
 timestamp = []
 tds_liste = []
-def uppdate_random_list():
-        global tds_data
+def uppdate_list_fil_tds():
         tds_verdi = esp32_data["tdsverdi"]
         tds_liste.append(tds_verdi)
         timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(tds_verdi)>10:
+        if len(tds_liste)>10:
             tds_liste.pop(0)
             timestamp.pop(0)
         tds_data = {
@@ -49,19 +48,18 @@ def uppdate_random_list():
 
         
         return pd.DataFrame(tds_data)
-def uppdate_list_graf():
-        global datagraf
+def uppdate_list_graf_tds():
         tds_verdi_graf = esp32_data["tdsverdi"]
         tds_liste.append(tds_verdi_graf)
         timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         if len(tds_liste)>10:
             tds_liste.pop(0)
             timestamp.pop(0)
-        datagraf = {
+        data_graf_tds = {
             "tds": tds_liste,
             "timestamp": timestamp
             }
-        return datagraf
+        return data_graf_tds
 
 @app.route('/')
 def run():
@@ -84,20 +82,20 @@ def sensor_func():
 @app.route('/download-csv')
 def download_csv():
     # Generer DataFrame
-    df = uppdate_random_list()
+    tds_liste_fil = uppdate_list_fil_tds()
 
     # Lagre DataFrame som CSV i minnet (StringIO)
-    csv_data = BytesIO()
-    df.to_csv(csv_data, index=False)
-    csv_data.seek(0)  # Sett tilbake filpekeren til starten
+    csv_data_tds = BytesIO()
+    tds_liste_fil.to_csv(csv_data_tds, index=False)
+    csv_data_tds.seek(0)  # Sett tilbake filpekeren til starten
 
     # Send CSV-filen som et vedlegg
-    return send_file(csv_data, mimetype='text/csv', as_attachment=True, download_name="data.csv")
+    return send_file(csv_data_tds, mimetype='text/csv', as_attachment=True, download_name="data.csv")
 
 @app.route('/update')
 def update_data():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
-    uppdate_list_graf()
+    datagraf = uppdate_list_graf_tds()
     # Returnerer dataen i JSON-format
     return jsonify(datagraf)
 
