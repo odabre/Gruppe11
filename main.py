@@ -66,11 +66,11 @@ def uppdate_list_graf_temperatur():
         temperatur_verdi = random.randint(-10,10)
         temperatur_liste_graf.append(temperatur_verdi)
         timestamp_temp_graf.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(tds_liste)>10:
+        if len(temperatur_liste_graf)>10:
             temperatur_liste_graf.pop(0)
             timestamp_temp_graf.pop(0)
         data_graf_temperatur = {
-            "temperatur": tds_liste,
+            "temperatur": temperatur_liste_graf,
             "timestamp": timestamp_temp_graf
             }
         return data_graf_temperatur

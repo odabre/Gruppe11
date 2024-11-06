@@ -33,7 +33,7 @@
                     </div>
                 </div>
             <div class = "content">
-                <h1>Last ned Pandas CSV</h1>
+                <h1>Temperatur</h1>
                     <table border="1">
                         <tbody id="data-table">
                             <!-- Data will be populated here -->
@@ -49,10 +49,10 @@
             const myChart = new Chart(ctx, {
                 type:"line",
                 data:{
-                    labels:["januar", "februar", "mars" , "april"],
+                    labels:[],
                     datasets:[{
                         label:"total dissolved solides",
-                        data:[25,100,50,10,80],
+                        data:[],
                         borderColor: "rgba(75,192,192, 1)",
                         borderWidth:1,
                         fill: false
@@ -103,7 +103,7 @@
                 .catch(error => console.error("Feil ved henting av data:", error));
                 }
                 // Run the function on page load and update every 5 seconds
-                setInterval(update_chart, 5000);
+                setInterval(update_chart, 2000);
                 
         </script>
     </body>
