@@ -16,7 +16,6 @@ from io import BytesIO
 
 app = Flask(__name__)
 
-
 esp32_data = {"temperature": None, "tdsverdi": None}
 tds_data = []
 
@@ -33,17 +32,17 @@ def receive_data():
 
 
 timestamp = []
-random_list = []
+tds_liste = []
 def uppdate_random_list():
         global tds_data
-        random_number = esp32_data["tdsverdi"]
-        random_list.append(random_number)
+        tds_verdi = esp32_data["tdsverdi"]
+        tds_liste.append(tds_verdi)
         timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(random_list)>10:
-            random_list.pop(0)
+        if len(tds_verdi)>10:
+            tds_liste.pop(0)
             timestamp.pop(0)
         tds_data = {
-            "tds": random_list,
+            "tds": tds_liste,
             "timestamp": timestamp
             }
         print(tds_data)
@@ -52,14 +51,14 @@ def uppdate_random_list():
         return pd.DataFrame(tds_data)
 def uppdate_list_graf():
         global datagraf
-        random_number = random.randint(-10,10)
-        random_list.append(random_number)
+        tds_verdi_graf = esp32_data["tdsverdi"]
+        tds_liste.append(tds_verdi_graf)
         timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(random_list)>10:
-            random_list.pop(0)
+        if len(tds_liste)>10:
+            tds_liste.pop(0)
             timestamp.pop(0)
         datagraf = {
-            "tds": random_list,
+            "tds": tds_liste,
             "timestamp": timestamp
             }
         return datagraf
