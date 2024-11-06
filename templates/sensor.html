@@ -39,7 +39,7 @@
                             <!-- Data will be populated here -->
                         </tbody>
                     </table>
-                    <a href="/download-csv">Klikk her for å laste ned tds data</a>
+                    <a href="/download_tds_csv">Klikk her for å laste ned tds</a>
                     <canvas id = "myChart" width="200" height = "100"></canvas>
 
             </div>
@@ -79,7 +79,7 @@
             });
             
                 function update_chart() {
-                    fetch("/update")
+                    fetch("/update_tds")
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);
@@ -94,7 +94,7 @@
                         console.log('Data mottatt:', datagraf);
                         myChart.update(); // Update the chart
                         })
-                    fetch('/download-tds-data')
+                    fetch('/download_tds_csv')
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);

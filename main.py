@@ -60,6 +60,34 @@ def uppdate_list_graf_tds():
             "timestamp": timestamp
             }
         return data_graf_tds
+temperatur_liste_graf = []
+timestamp_temp_graf = []
+def uppdate_list_graf_temperatur():
+        temperatur_verdi = random.randint(-10,10)
+        temperatur_liste_graf.append(temperatur_verdi)
+        timestamp_temp_graf.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        if len(tds_liste)>10:
+            temperatur_liste_graf.pop(0)
+            timestamp_temp_graf.pop(0)
+        data_graf_temperatur = {
+            "temperatur": tds_liste,
+            "timestamp": timestamp_temp_graf
+            }
+        return data_graf_temperatur
+temperatur_liste_fil = []
+timestamp_temp_fil = []
+def uppdate_list_fil_temperatur():
+        temperatur_verdi = random.randint(-10,10)
+        temperatur_liste_fil.append(temperatur_verdi)
+        timestamp_temp_fil.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        if len(temperatur_liste_fil)>10:
+            temperatur_liste_fil.pop(0)
+            timestamp_temp_fil.pop(0)
+        data_fil_temperatur = {
+            "tds": temperatur_liste_fil,
+            "timestamp": timestamp_temp_fil
+            }
+        return pd.DataFrame(data_fil_temperatur)
 
 @app.route('/')
 def run():
@@ -74,13 +102,32 @@ def oda_func():
 @app.route('/temperatur')
 def chello_func():
     return render_template("temperatur.html")
+@app.route('/download_temperatur_csv')
+def download_temperatur_csv():
+    # Generer DataFrame
+    temperatur_liste_fil = uppdate_list_fil_temperatur()
+
+    # Lagre DataFrame som CSV i minnet (StringIO)
+    csv_data_temperatur = BytesIO()
+    temperatur_liste_fil.to_csv(csv_data_temperatur, index=False)
+    csv_data_temperatur.seek(0)  # Sett tilbake filpekeren til starten
+
+    # Send CSV-filen som et vedlegg
+    return send_file(csv_data_temperatur, mimetype='text/csv', as_attachment=True, download_name="data.csv")
+
+@app.route('/update_temperatur')
+def update_temperatur():
+    # Genererer et tilfeldig tall (eller annen dynamisk data)
+    data_temperatur_graf = uppdate_list_graf_temperatur()
+    # Returnerer dataen i JSON-format
+    return jsonify(data_temperatur_graf)
 
 
 @app.route('/sensor')
 def sensor_func():
     return render_template("sensor.html")
-@app.route('/download-csv')
-def download_csv():
+@app.route('/download_tds_csv')
+def download_tds_csv():
     # Generer DataFrame
     tds_liste_fil = uppdate_list_fil_tds()
 
@@ -92,8 +139,8 @@ def download_csv():
     # Send CSV-filen som et vedlegg
     return send_file(csv_data_tds, mimetype='text/csv', as_attachment=True, download_name="data.csv")
 
-@app.route('/update')
-def update_data():
+@app.route('/update_tds')
+def update_tds():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
     datagraf = uppdate_list_graf_tds()
     # Returnerer dataen i JSON-format
@@ -108,6 +155,8 @@ def nr1_func():
 @app.route('/nr2')
 def nr2_func():
     return render_template("nr2.html")
+
+
 
 #function that we can call from other scripts to run the server in case we want to run the server even if __name__ != '__main__'
 def run_app():
