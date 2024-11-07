@@ -60,34 +60,8 @@ def uppdate_list_graf_tds():
             "timestamp": timestamp
             }
         return data_graf_tds
-temperatur_liste_graf = []
-timestamp_temp_graf = []
-def uppdate_list_graf_temperatur():
-        temperatur_verdi = random.randint(-10,10)
-        temperatur_liste_graf.append(temperatur_verdi)
-        timestamp_temp_graf.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(temperatur_liste_graf)>10:
-            temperatur_liste_graf.pop(0)
-            timestamp_temp_graf.pop(0)
-        data_graf_temperatur = {
-            "temperatur": temperatur_liste_graf,
-            "timestamp": timestamp_temp_graf
-            }
-        return data_graf_temperatur
-temperatur_liste_fil = []
-timestamp_temp_fil = []
-def uppdate_list_fil_temperatur():
-        temperatur_verdi = random.randint(-10,10)
-        temperatur_liste_fil.append(temperatur_verdi)
-        timestamp_temp_fil.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(temperatur_liste_fil)>10:
-            temperatur_liste_fil.pop(0)
-            timestamp_temp_fil.pop(0)
-        data_fil_temperatur = {
-            "tds": temperatur_liste_fil,
-            "timestamp": timestamp_temp_fil
-            }
-        return pd.DataFrame(data_fil_temperatur)
+
+
 ph_liste_graf = []
 timestamp_ph_graf = []
 ph_liste_fil = []
