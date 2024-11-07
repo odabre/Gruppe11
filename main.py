@@ -152,9 +152,7 @@ def update_tds():
 def nr1_func():
     return render_template("turbiditet.html")
 
-@app.route('/nr2')
-def nr2_func():
-    return render_template("nr2.html")
+
 
 
 
