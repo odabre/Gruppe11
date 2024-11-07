@@ -59,7 +59,7 @@ def generate_data():
             tds_verdi_graf =  random.randint(-10,10)
             tds_liste_synkron.append(tds_verdi_graf)
             timestamp2.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-            if len(tds_liste_synkron)>10:
+            if len(tds_liste_synkron)>100:
                 tds_liste_synkron.pop(0)
                 timestamp2.pop(0)
             
