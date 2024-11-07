@@ -2,6 +2,7 @@
     <head>
         <title>Turbiditet</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <div class="main">
@@ -29,9 +30,77 @@
                     </div>
             </aside>
             <div class = "content">
-                <h1>Turbiditet</h1>
-                <p>Graf</p>
+                <h1>Temperatur</h1>
+                    <table border="1">
+                        <tbody id="data-table">
+                            <!-- Data will be populated here -->
+                        </tbody>
+                    </table>
+                    <a href="/download_ph_csv">Klikk her for å laste ned tds data</a>
+                    <canvas id = "myChart" width="200" height = "100"></canvas>
             </div>
         </div>
+        <script>
+            const ctx = document.getElementById("myChart").getContext("2d");
+            const myChart = new Chart(ctx, {
+                type:"line",
+                data:{
+                    labels:[],
+                    datasets:[{
+                        label:"total dissolved solides",
+                        data:[],
+                        borderColor: "rgba(75,192,192, 1)",
+                        borderWidth:1,
+                        fill: false
+                    }]
+                },
+                options:{
+                    scales:{
+                         y:{
+                            beginAtZero:true,
+                            title:{
+                                display: true,
+                                text: "total disolved solids (ppm)"
+                            }
+                        },
+                        x:{
+                            title:{
+                                display: true,
+                                text: "tid"
+                            }
+                        }
+                    }
+                }
+            });
+            
+                function update_chart() {
+                    fetch("/update_ph")
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data_ph_graf => {
+                        // Update the chart with new data
+                        myChart.data.labels = data_ph_graf.ph.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
+                        myChart.data.datasets[0].data = data_ph_graf.ph; // Assuming 'tds' contains your y-axis data
+                        // Log received data for debugging
+                        console.log('Data mottatt:', data_ph_graf);
+                        myChart.update(); // Update the chart
+                        })
+                    fetch('/download_ph_csv')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                .catch(error => console.error("Feil ved henting av data:", error));
+                }
+                // Run the function on page load and update every 5 seconds
+                setInterval(update_chart, 2000);
+                
+        </script>
     </body>
 </html>
