@@ -12,6 +12,8 @@ import oda
 import os
 from io import StringIO
 from io import BytesIO
+import time
+from threading import Thread
 # Create an instance of the Flask class
 
 app = Flask(__name__)
@@ -34,7 +36,7 @@ def receive_data():
 timestamp = []
 tds_liste = []
 def uppdate_list_fil_tds():
-        tds_verdi = esp32_data["tdsverdi"]
+        tds_verdi = random.randint(-10,10)
         tds_liste.append(tds_verdi)
         timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         if len(tds_liste)>10:
@@ -48,18 +50,27 @@ def uppdate_list_fil_tds():
 
         
         return pd.DataFrame(tds_data)
-def uppdate_list_graf_tds():
-        tds_verdi_graf = esp32_data["tdsverdi"]
-        tds_liste.append(tds_verdi_graf)
-        timestamp.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(tds_liste)>10:
-            tds_liste.pop(0)
-            timestamp.pop(0)
-        data_graf_tds = {
-            "tds": tds_liste,
-            "timestamp": timestamp
-            }
-        return data_graf_tds
+tds_liste_synkron = []
+timestamp2 = []
+tds_verdi_graf = 2
+def generate_data():
+        global data_graf_tds
+        while True:
+            tds_verdi_graf =  random.randint(-10,10)
+            tds_liste_synkron.append(tds_verdi_graf)
+            timestamp2.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            if len(tds_liste_synkron)>10:
+                tds_liste_synkron.pop(0)
+                timestamp2.pop(0)
+            
+            data_graf_tds = {
+                "tds": tds_liste_synkron,
+                "timestamp": timestamp2
+                }
+            time.sleep(1)
+thread = Thread(target=generate_data)
+thread.daemon = True  # Tråden stopper når Flask stopper
+thread.start()
 
 
 ph_liste_graf = []
@@ -163,9 +174,8 @@ def download_tds_csv():
 @app.route('/update_tds')
 def update_tds():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
-    datagraf = uppdate_list_graf_tds()
     # Returnerer dataen i JSON-format
-    return jsonify(datagraf)
+    return jsonify(data_graf_tds)
 
 
 
