@@ -109,6 +109,10 @@ timestamp_turbiditet_graf = []
 turbiditet_liste_fil = []
 timestamp_turbiditet_fil = []
 
+temperatur_liste_graf = []
+timestamp_temperatur_graf = []
+temperatur_liste_fil = []
+timestamp_temperatur_fil = []
 
 
 @app.route('/')
@@ -147,11 +151,12 @@ def chello_func():
 @app.route('/download_temperatur_csv')
 def download_temperatur_csv():
     # Generer DataFrame
-    temperatur_liste_fil = uppdate_list_fil_temperatur()
-
+    global temperatur_liste_fil, timestamp_temperatur_fil
+    temperatur_data_fil, temperatur_liste_fil, timestamp_temperatur_fil = oppdater_lister_fil(temperatur_liste_fil, timestamp_temperatur_fil)
+    temperatur_data_fil = pd.DataFrame(temperatur_data_fil)
     # Lagre DataFrame som CSV i minnet (StringIO)
     csv_data_temperatur = BytesIO()
-    temperatur_liste_fil.to_csv(csv_data_temperatur, index=False)
+    temperatur_data_fil.to_csv(csv_data_temperatur, index=False)
     csv_data_temperatur.seek(0)  # Sett tilbake filpekeren til starten
 
     # Send CSV-filen som et vedlegg
@@ -159,9 +164,9 @@ def download_temperatur_csv():
 
 @app.route('/update_temperatur')
 def update_temperatur():
+    global temperatur_liste_graf, timestamp_temperatur_graf
     # Genererer et tilfeldig tall (eller annen dynamisk data)
-    data_temperatur_graf = uppdate_list_graf_temperatur()
-    # Returnerer dataen i JSON-format
+    data_temperatur_graf, temperatur_liste_graf, timestamp_temperatur_graf = oppdater_lister_fil(temperatur_liste_graf, timestamp_temperatur_graf)
     return jsonify(data_temperatur_graf)
 
 

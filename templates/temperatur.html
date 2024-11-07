@@ -87,8 +87,8 @@
                     })
                     .then(data_temperatur_graf => {
                         // Update the chart with new data
-                        myChart.data.labels = data_temperatur_graf.temperatur.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
-                        myChart.data.datasets[0].data = data_temperatur_graf.temperatur; // Assuming 'tds' contains your y-axis data
+                        myChart.data.labels = data_temperatur_graf.verdi.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
+                        myChart.data.datasets[0].data = data_temperatur_graf.verdi; // Assuming 'tds' contains your y-axis data
                         // Log received data for debugging
                         console.log('Data mottatt:', data_temperatur_graf);
                         myChart.update(); // Update the chart

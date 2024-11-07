@@ -36,7 +36,7 @@
                             <!-- Data will be populated here -->
                         </tbody>
                     </table>
-                    <a href="/download_ph_csv">Klikk her for å laste ned tds data</a>
+                    <a href="/download_turbiditet_csv">Klikk her for å laste ned tds data</a>
                     <canvas id = "myChart" width="200" height = "100"></canvas>
             </div>
         </div>
@@ -74,22 +74,22 @@
             });
             
                 function update_chart() {
-                    fetch("/update_ph")
+                    fetch("/update_turbiditet")
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);
                         }
                         return response.json();
                     })
-                    .then(data_ph_graf => {
+                    .then(data_turbiditet_graf => {
                         // Update the chart with new data
-                        myChart.data.labels = data_ph_graf.ph.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
-                        myChart.data.datasets[0].data = data_ph_graf.ph; // Assuming 'tds' contains your y-axis data
+                        myChart.data.labels = data_turbiditet_graf.verdi.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
+                        myChart.data.datasets[0].data = data_turbiditet_graf.verdi; // Assuming 'tds' contains your y-axis data
                         // Log received data for debugging
-                        console.log('Data mottatt:', data_ph_graf);
+                        console.log('Data mottatt:', data_turbiditet_graf);
                         myChart.update(); // Update the chart
                         })
-                    fetch('/download_ph_csv')
+                    fetch('/download_turbiditet_csv')
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);
