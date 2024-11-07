@@ -36,8 +36,11 @@
                             <!-- Data will be populated here -->
                         </tbody>
                     </table>
-                    <a href="/download_temperatur_csv">Klikk her for å laste ned tds data</a>
+                    
                     <canvas id = "myChart" width="200" height = "100"></canvas>
+                    <a href="/download_temperatur_csv" style="color:rgb(2, 77, 102);">Klikk her for å laste ned temperaturdata</a>
+
+                    <p>Her skal vi skrive informasjon om temperaturmålingene våre. Hvis det trengs</p>
 
             </div>
         </div>
@@ -48,7 +51,7 @@
                 data:{
                     labels:[],
                     datasets:[{
-                        label:"total dissolved solides",
+                        label:"Temperatur",
                         data:[],
                         borderColor: "rgba(75,192,192, 1)",
                         borderWidth:1,
@@ -61,7 +64,7 @@
                             beginAtZero:true,
                             title:{
                                 display: true,
-                                text: "total disolved solids (ppm)"
+                                text: "Grader i celsius"
                             }
                         },
                         x:{
