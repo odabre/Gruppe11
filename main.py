@@ -88,6 +88,28 @@ def uppdate_list_fil_temperatur():
             "timestamp": timestamp_temp_fil
             }
         return pd.DataFrame(data_fil_temperatur)
+ph_liste_graf = []
+timestamp_ph_graf = []
+ph_liste_fil = []
+timestamp_ph_fil = [] 
+def oppdater_lister_fil(liste, tid_liste):
+        verdi = random.randint(-10,10)
+        liste.append(verdi)
+        tid_liste.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        if len(liste)>10:
+            liste.pop(0)
+            tid_liste.pop(0)
+        data = {
+            "verdi": liste,
+            "timestamp": tid_liste
+            }
+        return data, liste, tid_liste
+turbiditet_liste_graf = []
+timestamp_turbiditet_graf = []
+turbiditet_liste_fil = []
+timestamp_turbiditet_fil = []
+
+
 
 @app.route('/')
 def run():
@@ -97,6 +119,26 @@ def run():
 @app.route('/ph')
 def oda_func():
     return render_template("ph.html")
+@app.route('/download_ph_csv')
+def download_ph_csv():
+    # Generer DataFrame
+    global ph_liste_fil, timestamp_ph_fil
+    ph_data_fil, ph_liste_fil, timestamp_ph_fil = oppdater_lister_fil(ph_liste_fil, timestamp_ph_fil)
+    ph_data_fil = pd.DataFrame(ph_data_fil)
+    # Lagre DataFrame som CSV i minnet (StringIO)
+    csv_data_ph = BytesIO()
+    ph_data_fil.to_csv(csv_data_ph, index=False)
+    csv_data_ph.seek(0)  # Sett tilbake filpekeren til starten
+
+    # Send CSV-filen som et vedlegg
+    return send_file(csv_data_ph, mimetype='text/csv', as_attachment=True, download_name="data.csv")
+@app.route('/update_ph')
+def update_ph():
+    global ph_liste_graf, timestamp_ph_graf
+    # Genererer et tilfeldig tall (eller annen dynamisk data)
+    data_ph_graf, ph_liste_graf, timestamp_ph_graf = oppdater_lister_fil(ph_liste_graf, timestamp_ph_graf)
+    # Returnerer dataen i JSON-format
+    return jsonify(data_ph_graf)
 
 
 @app.route('/temperatur')
@@ -151,6 +193,26 @@ def update_tds():
 @app.route('/turbiditet')
 def nr1_func():
     return render_template("turbiditet.html")
+@app.route('/download_turbiditet_csv')
+def download_turbiditet_csv():
+    # Generer DataFrame
+    global turbiditet_liste_fil, timestamp_turbiditet_fil
+    turbiditet_data_fil, turbiditet_liste_fil, timestamp_turbiditet_fil = oppdater_lister_fil(turbiditet_liste_fil, timestamp_turbiditet_fil)
+    turbiditet_data_fil = pd.DataFrame(turbiditet_data_fil)
+    # Lagre DataFrame som CSV i minnet (StringIO)
+    csv_data_turbiditet = BytesIO()
+    turbiditet_data_fil.to_csv(csv_data_turbiditet, index=False)
+    csv_data_turbiditet.seek(0)  # Sett tilbake filpekeren til starten
+
+    # Send CSV-filen som et vedlegg
+    return send_file(csv_data_turbiditet, mimetype='text/csv', as_attachment=True, download_name="data.csv")
+@app.route('/update_turbiditet')
+def update_turbiditet():
+    global turbiditet_liste_graf, timestamp_turbiditet_graf
+    # Genererer et tilfeldig tall (eller annen dynamisk data)
+    data_turbiditet_graf, turbiditet_liste_graf, timestamp_turbiditet_graf = oppdater_lister_fil(turbiditet_liste_graf, timestamp_turbiditet_graf)
+    # Returnerer dataen i JSON-format
+    return jsonify(data_turbiditet_graf)
 
 
 
