@@ -13,7 +13,7 @@
                 <ul>
                     <li><a href="/ph">PH</a></li>
                     <li><a href="/temperatur">Temperatur</a></li>
-                    <li><a href="/sensor">Total dissolved solids</a></li>
+                    <li><a href="/tds">Total dissolved solids</a></li>
                     <li><a href="/turbiditet">Turbiditet</a></li>
                 </ul>
 
@@ -75,8 +75,16 @@
                 }
             });
             
-                function update_chart() {
-                    fetch("/update_tds")
+            let isInitialLoadComplete = false;  // Variabel for å spore om vi har lastet inn første data
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Last hele datasettet når siden først lastes
+                    load_initial_data();
+                });
+
+                // Funksjon for å laste hele datasettet første gang
+                function load_initial_data() {
+                    fetch("/load_tds")  // Henter hele datasettet
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);
@@ -84,26 +92,60 @@
                         return response.json();
                     })
                     .then(data_tds_graf => {
-                        // Log received data for debugging
-                        console.log('Data mottatt:', data_tds_graf);
+                        console.log('Data lastet inn:', data_tds_graf);
 
-                        const maxDataPoints = 20; // Maks antall punkter på grafen
+                        // Initialiser grafen med hele datasettet
+                        myChart.data.labels = data_tds_graf.timestamp;  // Hele x-aksen
+                        myChart.data.datasets[0].data = data_tds_graf.tds;  // Hele y-aksen
+                        myChart.update();  // Oppdater grafen med de initiale dataene
 
-                        // Legg til ny tidsstempel og temperaturverdi
-                        const newTimestamp = data_tds_graf.timestamp[data_tds_graf.tds.length - 1]; // Antatt å være et enkelt tidsstempel
-                        const newtds = data_tds_graf.tds[data_tds_graf.tds.length - 1]; // Antatt å være en enkel temperaturverdi
+                        // Sett isInitialLoadComplete til true når første innlasting er ferdig
+                        isInitialLoadComplete = true;
 
-                        // Sjekk om vi allerede har nådd maks antall punkter
+                        // Begynn å oppdatere grafen med én verdi om gangen
+                        start_updating_chart();
+                    })
+                    .catch(error => console.error("Feil ved lasting av data:", error));
+                }
+
+                // Funksjon som starter oppdatering av grafen med én ny verdi om gangen
+                function start_updating_chart() {
+                    // Sjekk om vi er ferdig med å laste initial data
+                    if (isInitialLoadComplete) {
+                        // Start å oppdatere grafen med nye data hvert 2. sekund (for eksempel)
+                        setInterval(update_chart, 2000);
+                    }
+                }
+
+                // Funksjon for å oppdatere grafen med ny tdsverdi
+                function update_chart() {
+                    fetch("/update_tds")  // Henter den siste tdsverdien
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data_tds_graf => {
+                        console.log('Ny data mottatt:', data_tds_graf);
+
+                        const maxDataPoints = 20;  // Maks antall punkter på grafen
+
+                        // Sjekk om vi har nådd maks antall punkter på grafen
                         if (myChart.data.labels.length >= maxDataPoints) {
-                            myChart.data.labels.shift(); // Fjern eldste x-verdi
-                            myChart.data.datasets[0].data.shift(); // Fjern eldste y-verdi
+                            myChart.data.labels.shift();  // Fjern eldste tidsstempel
+                            myChart.data.datasets[0].data.shift();  // Fjern eldste tdsverdi
                         }
 
-                        // Legg til den nye verdien til slutten av listene
-                        myChart.data.labels.push(newTimestamp); // Legg til nyeste x-verdi
-                        myChart.data.datasets[0].data.push(newtds); // Legg til nyeste y-verdi
+                        // Legg til den nye verdien
+                        const newTimestamp = data_tds_graf.timestamp[data_tds_graf.timestamp.length - 1];
+                        const newtds = data_tds_graf.tds[data_tds_graf.tds.length - 1];
 
-                        myChart.update(); // Oppdater grafen
+                        // Legg til nyeste verdier til grafen
+                        myChart.data.labels.push(newTimestamp);  // Legg til nytt tidsstempel
+                        myChart.data.datasets[0].data.push(newtds);  // Legg til ny tdsverdi
+
+                        myChart.update();  // Oppdater grafen
                     })
                     fetch('/download_tds_csv')
                     .then(response => {

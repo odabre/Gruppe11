@@ -64,7 +64,7 @@ def generate_data_temperatur():
         while True:
             temperatur_verdi_graf =  random.randint(-10,10)
             temperatur_liste_synkron.append(temperatur_verdi_graf)
-            timestamp_temperatur.append(datetime.datetime.now().strftime("%H:%M:%S"))
+            timestamp_temperatur.append(datetime.datetime.now().strftime("%H:%M"))
             if len(temperatur_liste_synkron)>100:
                 temperatur_liste_synkron.pop(0)
                 timestamp_temperatur.pop(0)
@@ -73,7 +73,7 @@ def generate_data_temperatur():
                 "temperatur": temperatur_liste_synkron,
                 "timestamp": timestamp_temperatur
                 }
-            time.sleep(2)
+            time.sleep(60)
 thread = Thread(target=generate_data_temperatur)
 thread.daemon = True  # Tråden stopper når Flask stopper
 thread.start()
@@ -86,7 +86,7 @@ def generate_data_turbiditet():
         while True:
             turbiditet_verdi_graf =  random.randint(-10,10)
             turbiditet_liste_synkron.append(turbiditet_verdi_graf)
-            timestamp_turbiditet.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            timestamp_turbiditet.append(datetime.datetime.now().strftime("%d-%m %H:%M"))
             if len(turbiditet_liste_synkron)>100:
                 turbiditet_liste_synkron.pop(0)
                 timestamp_turbiditet.pop(0)
@@ -95,37 +95,34 @@ def generate_data_turbiditet():
                 "turbiditet": turbiditet_liste_synkron,
                 "timestamp": timestamp_turbiditet
                 }
-            time.sleep(1)
+            time.sleep(600)
 thread = Thread(target=generate_data_turbiditet)
 thread.daemon = True  # Tråden stopper når Flask stopper
 thread.start()
 
+ph_liste_synkron = []
+timestamp_ph = []
+ph_verdi_graf = 2
+def generate_data_ph():
+        global data_graf_ph
+        while True:
+            ph_verdi_graf =  random.randint(-10,10)
+            ph_liste_synkron.append(ph_verdi_graf)
+            timestamp_ph.append(datetime.datetime.now().strftime("%H:%M:%S"))
+            if len(ph_liste_synkron)>100:
+                ph_liste_synkron.pop(0)
+                timestamp_ph.pop(0)
+            
+            data_graf_ph = {
+                "ph": ph_liste_synkron,
+                "timestamp": timestamp_ph
+                }
+            time.sleep(10)
+thread = Thread(target=generate_data_ph)
+thread.daemon = True  # Tråden stopper når Flask stopper
+thread.start()
 
-ph_liste_graf = []
-timestamp_ph_graf = []
-ph_liste_fil = []
-timestamp_ph_fil = [] 
-def oppdater_lister_fil(liste, tid_liste):
-        verdi = random.randint(-10,10)
-        liste.append(verdi)
-        tid_liste.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        if len(liste)>10:
-            liste.pop(0)
-            tid_liste.pop(0)
-        data = {
-            "verdi": liste,
-            "timestamp": tid_liste
-            }
-        return data, liste, tid_liste
-turbiditet_liste_graf = []
-timestamp_turbiditet_graf = []
-turbiditet_liste_fil = []
-timestamp_turbiditet_fil = []
 
-temperatur_liste_graf = []
-timestamp_temperatur_graf = []
-temperatur_liste_fil = []
-timestamp_temperatur_fil = []
 
 
 @app.route('/')
@@ -134,14 +131,12 @@ def run():
 
 
 @app.route('/ph')
-def oda_func():
+def ph_func():
     return render_template("ph.html")
 @app.route('/download_ph_csv')
 def download_ph_csv():
     # Generer DataFrame
-    global ph_liste_fil, timestamp_ph_fil
-    ph_data_fil, ph_liste_fil, timestamp_ph_fil = oppdater_lister_fil(ph_liste_fil, timestamp_ph_fil)
-    ph_data_fil = pd.DataFrame(ph_data_fil)
+    ph_data_fil = pd.DataFrame(data_graf_ph)
     # Lagre DataFrame som CSV i minnet (StringIO)
     csv_data_ph = BytesIO()
     ph_data_fil.to_csv(csv_data_ph, index=False)
@@ -149,13 +144,13 @@ def download_ph_csv():
 
     # Send CSV-filen som et vedlegg
     return send_file(csv_data_ph, mimetype='text/csv', as_attachment=True, download_name="data.csv")
+
+@app.route('/load_ph')
+def load_ph():
+    return jsonify(data_graf_ph)
 @app.route('/update_ph')
 def update_ph():
-    global ph_liste_graf, timestamp_ph_graf
-    # Genererer et tilfeldig tall (eller annen dynamisk data)
-    data_ph_graf, ph_liste_graf, timestamp_ph_graf = oppdater_lister_fil(ph_liste_graf, timestamp_ph_graf)
-    # Returnerer dataen i JSON-format
-    return jsonify(data_ph_graf)
+    return jsonify(data_graf_ph)
 
 
 @app.route('/temperatur')
@@ -173,14 +168,17 @@ def download_temperatur_csv():
     # Send CSV-filen som et vedlegg
     return send_file(csv_data_temperatur, mimetype='text/csv', as_attachment=True, download_name="data.csv")
 
+@app.route('/load_temperatur')
+def load_temperatur():
+    return jsonify(data_graf_temperatur)
 @app.route('/update_temperatur')
 def update_temperatur():
     return jsonify(data_graf_temperatur)
 
 
-@app.route('/sensor')
+@app.route('/tds')
 def sensor_func():
-    return render_template("sensor.html")
+    return render_template("tds.html")
 @app.route('/download_tds_csv')
 def download_tds_csv():
     # Generer DataFrame
@@ -198,6 +196,9 @@ def download_tds_csv():
 def update_tds():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
     # Returnerer dataen i JSON-format
+    return jsonify(data_graf_tds)
+@app.route('/load_tds')
+def load_tds():
     return jsonify(data_graf_tds)
 
 
@@ -219,6 +220,9 @@ def download_turbiditet_csv():
 @app.route('/update_turbiditet')
 def update_turbiditet():
     # Returnerer dataen i JSON-format
+    return jsonify(data_graf_turbiditet)
+@app.route('/load_turbiditet')
+def load_turbiditet():
     return jsonify(data_graf_turbiditet)
 
 

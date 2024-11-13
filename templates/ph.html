@@ -14,7 +14,7 @@
                 <ul>
                         <li><a href="/ph">PH</a></li>
                         <li><a href="/temperatur">Temperatur</a></li>
-                        <li><a href="/sensor">Total dissolved solids</a></li>
+                        <li><a href="/tds">Total dissolved solids</a></li>
                         <li><a href="/turbiditet">Turbiditet</a></li>
                 </ul>
                     <div class = "link-container">
@@ -73,8 +73,16 @@
                 }
             });
             
-                function update_chart() {
-                    fetch("/update_ph")
+            let isInitialLoadComplete = false;  // Variabel for å spore om vi har lastet inn første data
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Last hele datasettet når siden først lastes
+                    load_initial_data();
+                });
+
+                // Funksjon for å laste hele datasettet første gang
+                function load_initial_data() {
+                    fetch("/load_ph")  // Henter hele datasettet
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);
@@ -82,13 +90,61 @@
                         return response.json();
                     })
                     .then(data_ph_graf => {
-                        // Update the chart with new data
-                        myChart.data.labels = data_ph_graf.verdi.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
-                        myChart.data.datasets[0].data = data_ph_graf.verdi; // Assuming 'tds' contains your y-axis data
-                        // Log received data for debugging
-                        console.log('Data mottatt:', data_ph_graf);
-                        myChart.update(); // Update the chart
-                        })
+                        console.log('Data lastet inn:', data_ph_graf);
+
+                        // Initialiser grafen med hele datasettet
+                        myChart.data.labels = data_ph_graf.timestamp;  // Hele x-aksen
+                        myChart.data.datasets[0].data = data_ph_graf.ph;  // Hele y-aksen
+                        myChart.update();  // Oppdater grafen med de initiale dataene
+
+                        // Sett isInitialLoadComplete til true når første innlasting er ferdig
+                        isInitialLoadComplete = true;
+
+                        // Begynn å oppdatere grafen med én verdi om gangen
+                        start_updating_chart();
+                    })
+                    .catch(error => console.error("Feil ved lasting av data:", error));
+                }
+
+                // Funksjon som starter oppdatering av grafen med én ny verdi om gangen
+                function start_updating_chart() {
+                    // Sjekk om vi er ferdig med å laste initial data
+                    if (isInitialLoadComplete) {
+                        // Start å oppdatere grafen med nye data hvert 2. sekund (for eksempel)
+                        setInterval(update_chart, 10000);
+                    }
+                }
+
+                // Funksjon for å oppdatere grafen med ny phverdi
+                function update_chart() {
+                    fetch("/update_ph")  // Henter den siste phverdien
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data_ph_graf => {
+                        console.log('Ny data mottatt:', data_ph_graf);
+
+                        const maxDataPoints = 20;  // Maks antall punkter på grafen
+
+                        // Sjekk om vi har nådd maks antall punkter på grafen
+                        if (myChart.data.labels.length >= maxDataPoints) {
+                            myChart.data.labels.shift();  // Fjern eldste tidsstempel
+                            myChart.data.datasets[0].data.shift();  // Fjern eldste phverdi
+                        }
+
+                        // Legg til den nye verdien
+                        const newTimestamp = data_ph_graf.timestamp[data_ph_graf.timestamp.length - 1];
+                        const newph = data_ph_graf.ph[data_ph_graf.ph.length - 1];
+
+                        // Legg til nyeste verdier til grafen
+                        myChart.data.labels.push(newTimestamp);  // Legg til nytt tidsstempel
+                        myChart.data.datasets[0].data.push(newph);  // Legg til ny phverdi
+
+                        myChart.update();  // Oppdater grafen
+                    })
                     fetch('/download_ph_csv')
                     .then(response => {
                         if (!response.ok) {
@@ -99,7 +155,7 @@
                 .catch(error => console.error("Feil ved henting av data:", error));
                 }
                 // Run the function on page load and update every 5 seconds
-                setInterval(update_chart, 2000);
+
                 
         </script>
     </body>
