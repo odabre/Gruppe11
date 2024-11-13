@@ -18,7 +18,7 @@ from threading import Thread
 
 app = Flask(__name__)
 
-esp32_data = {"temperature": None, "tdsverdi": None}
+esp32_data = {"temp": None, "tdsverdi": None}
 tds_data = []
 
 # Rute for å motta data fra ESP32
@@ -27,7 +27,6 @@ def receive_data():
     global esp32_data  # Bruk global variabel for å lagre data
     data = request.json  # Hent JSON-data fra forespørselen
     if data:  # Hvis det er data i forespørselen
-        esp32_data['temperature'] = data.get('temperature')  # Oppdater temperatur
         esp32_data['tdsverdi'] = data.get('tdsverdi')  # Oppdater fuktighet
         return jsonify({"message": "Data received successfully"}), 200  # Send suksessmelding
     return jsonify({"message": "No data received"}), 400  # Send feilmelding hvis ingen data
@@ -40,9 +39,9 @@ tds_verdi_graf = 2
 def generate_data():
         global data_graf_tds
         while True:
-            tds_verdi_graf =  random.randint(-10,10)
+            tds_verdi_graf = esp32_data['tdsverdi']
             tds_liste_synkron.append(tds_verdi_graf)
-            timestamp_tds.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            timestamp_tds.append(datetime.datetime.now().strftime("%H:%M:%S"))
             if len(tds_liste_synkron)>100:
                 tds_liste_synkron.pop(0)
                 timestamp_tds.pop(0)
@@ -51,7 +50,7 @@ def generate_data():
                 "tds": tds_liste_synkron,
                 "timestamp": timestamp_tds
                 }
-            time.sleep(1)
+            time.sleep(2)
 thread = Thread(target=generate_data)
 thread.daemon = True  # Tråden stopper når Flask stopper
 thread.start()
