@@ -3,6 +3,32 @@
         <title>Total Dissolved Solids</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            /* Enkel stil for en knapp */
+            .styled-button {
+                background-color: rgb(2, 77, 102); /* Grønn farge */
+                color: white; /* Hvit tekst */
+                padding: 10px 20px; /* Avstand innvendig */
+                font-size: 16px; /* Tekststørrelse */
+                border: none; /* Ingen kantlinje */
+                border-radius: 5px; /* Runde hjørner */
+                cursor: pointer; /* Markør som peker */
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Skygge */
+                transition: all 0.3s ease; /* Overgangseffekt */
+            }
+    
+            .styled-button:hover {
+                background-color: rgb(2, 77, 102); /* Litt mørkere grønn ved hover */
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Litt sterkere skygge */
+                transform: translateY(-2px); /* Løft knapp litt opp */
+            }
+    
+            .styled-button:active {
+                background-color:rgb(2, 77, 102); /* Mørkere grønn ved klikk */
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Mindre skygge ved klikk */
+                transform: translateY(2px); /* Trykk knapp litt ned */
+            }
+        </style>
     </head>
     <body>
         <div class="main">
@@ -37,7 +63,7 @@
                             <!-- Data will be populated here -->
                         </tbody>
                     </table>
-                    <a href="/download_tds_csv">Klikk her for å laste ned tds</a>
+                    <button class="styled-button" href="/download_tds_csv">Klikk her for å laste ned tds data</button>
                     <canvas id = "myChart" width="200" height = "100"></canvas>
 
             </div>
