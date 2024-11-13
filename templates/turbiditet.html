@@ -82,13 +82,27 @@
                         return response.json();
                     })
                     .then(data_turbiditet_graf => {
-                        // Update the chart with new data
-                        myChart.data.labels = data_turbiditet_graf.turbiditet.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
-                        myChart.data.datasets[0].data = data_turbiditet_graf.turbiditet; // Assuming 'tds' contains your y-axis data
                         // Log received data for debugging
                         console.log('Data mottatt:', data_turbiditet_graf);
-                        myChart.update(); // Update the chart
-                        })
+
+                        const maxDataPoints = 20; // Maks antall punkter på grafen
+
+                        // Legg til ny tidsstempel og temperaturverdi
+                        const newTimestamp = data_turbiditet_graf.timestamp[data_turbiditet_graf.timestamp.length - 1]; // Antatt å være et enkelt tidsstempel
+                        const newturbiditet = data_turbiditet_graf.turbiditet[data_turbiditet_graf.turbiditet.length - 1]; // Antatt å være en enkel temperaturverdi
+
+                        // Sjekk om vi allerede har nådd maks antall punkter
+                        if (myChart.data.labels.length >= maxDataPoints) {
+                            myChart.data.labels.shift(); // Fjern eldste x-verdi
+                            myChart.data.datasets[0].data.shift(); // Fjern eldste y-verdi
+                        }
+
+                        // Legg til den nye verdien til slutten av listene
+                        myChart.data.labels.push(newTimestamp); // Legg til nyeste x-verdi
+                        myChart.data.datasets[0].data.push(newturbiditet); // Legg til nyeste y-verdi
+
+                        myChart.update(); // Oppdater grafen
+                    })
                     fetch('/download_turbiditet_csv')
                     .then(response => {
                         if (!response.ok) {
@@ -99,7 +113,7 @@
                 .catch(error => console.error("Feil ved henting av data:", error));
                 }
                 // Run the function on page load and update every 5 seconds
-                setInterval(update_chart, 2000);
+                setInterval(update_chart, 1000);
                 
         </script>
     </body>

@@ -64,7 +64,7 @@ def generate_data_temperatur():
         while True:
             temperatur_verdi_graf =  random.randint(-10,10)
             temperatur_liste_synkron.append(temperatur_verdi_graf)
-            timestamp_temperatur.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            timestamp_temperatur.append(datetime.datetime.now().strftime("%H:%M:%S"))
             if len(temperatur_liste_synkron)>100:
                 temperatur_liste_synkron.pop(0)
                 timestamp_temperatur.pop(0)
@@ -73,7 +73,7 @@ def generate_data_temperatur():
                 "temperatur": temperatur_liste_synkron,
                 "timestamp": timestamp_temperatur
                 }
-            time.sleep(1)
+            time.sleep(2)
 thread = Thread(target=generate_data_temperatur)
 thread.daemon = True  # Tråden stopper når Flask stopper
 thread.start()
@@ -187,7 +187,7 @@ def download_tds_csv():
     tds_liste_fil = pd.DataFrame(data_graf_tds)
 
     # Lagre DataFrame som CSV i minnet (StringIO)
-    csv_data_tds = BytesIO()
+    csv_data_tds = BytesIO()  
     tds_liste_fil.to_csv(csv_data_tds, index=False)
     csv_data_tds.seek(0)  # Sett tilbake filpekeren til starten
 

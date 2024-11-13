@@ -86,13 +86,27 @@
                         return response.json();
                     })
                     .then(data_temperatur_graf => {
-                        // Update the chart with new data
-                        myChart.data.labels = data_temperatur_graf.temperatur.map((_, index) => index + 1); // Set x-axis labels to index (1, 2, 3, ...)
-                        myChart.data.datasets[0].data = data_temperatur_graf.temperatur; // Assuming 'tds' contains your y-axis data
                         // Log received data for debugging
                         console.log('Data mottatt:', data_temperatur_graf);
-                        myChart.update(); // Update the chart
-                        })
+
+                        const maxDataPoints = 20; // Maks antall punkter på grafen
+
+                        // Legg til ny tidsstempel og temperaturverdi
+                        const newTimestamp = data_temperatur_graf.timestamp[data_temperatur_graf.timestamp.length - 1]; // Antatt å være et enkelt tidsstempel
+                        const newTemperatur = data_temperatur_graf.temperatur[data_temperatur_graf.temperatur.length - 1]; // Antatt å være en enkel temperaturverdi
+
+                        // Sjekk om vi allerede har nådd maks antall punkter
+                        if (myChart.data.labels.length >= maxDataPoints) {
+                            myChart.data.labels.shift(); // Fjern eldste x-verdi
+                            myChart.data.datasets[0].data.shift(); // Fjern eldste y-verdi
+                        }
+
+                        // Legg til den nye verdien til slutten av listene
+                        myChart.data.labels.push(newTimestamp); // Legg til nyeste x-verdi
+                        myChart.data.datasets[0].data.push(newTemperatur); // Legg til nyeste y-verdi
+
+                        myChart.update(); // Oppdater grafen
+                    })
                     fetch('/download_temperatur_csv')
                     .then(response => {
                         if (!response.ok) {
