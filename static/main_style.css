@@ -75,7 +75,7 @@ p.bold {
     display: flex; 
     align-items: center;
     gap: 20px; /* Avstand mellom bildet og tekst*/
-    max-width: 2000px;
+    max-width: 800px;
     margin-bottom: 20px; /*avstand til bunnen*/
 }
 
@@ -89,12 +89,21 @@ p.bold {
     text-align: left; /* Setter teksten til venstre */
 }
 
-.bilde-høyre-for-tekst-forhold p{
-    display: flex;
-    align-items: center;
+
+@media (max-width: 600px) {
+    .bilde-venstre-for-tekst-forhold {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .bilde-venstre-for-tekst-forhold img {
+        max-width: 100%;
+    }
+
+    .bilde-venstre-for-tekst-forhold p {
+        text-align: center;
+    }
 }
-
-
 
 
 
