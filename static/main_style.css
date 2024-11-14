@@ -70,7 +70,7 @@ p.bold {
 
 .bilde-venstre-for-tekst-forhold p{
     flex: 1; /* Teksten bruker resten av plassen*/
-    text-align: left; /* Setter teksten til venstre */
+    text-align: center; /* Setter teksten til venstre */
 }
 
 
@@ -86,6 +86,7 @@ p.bold {
 
     .bilde-venstre-for-tekst-forhold p {
         text-align: center;
+
     }
 }
 
