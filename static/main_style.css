@@ -27,7 +27,6 @@ h1 {
 
 p.bold {
     font-weight: bold;
-    
 }
 
 .headers {
@@ -43,7 +42,7 @@ p.bold {
     margin: 0 auto 20px auto; /* Sentrerer bildet horisontalt */
 }
 
-.facebook {
+.facebook, .instagram, .twitter{
     width: 90%; /* Setter bredden til 25% av sidebaren */
     max-width: 50px; /* Maksimal størrelse på logoen*/
     height: auto; /* Beholder proporsjonene til bildet */
@@ -52,23 +51,7 @@ p.bold {
     border-radius: 50%;
 }
 
-.instagram {
-    width: 90%; /* sidebaren */
-    max-width: 50px; /* Maksimal størrelse på logoen*/
-    height: auto; /* Beholder proporsjonene til bildet */
-    display: block; /* Gjør logoen til et blokkelement*/
-    margin-bottom: 20px; /* Avstand fra innholdet under*/
-    border-radius: 50%;
-}
 
-.twitter {
-    width: 90%; /* Setter bredden til 25% av sidebaren */
-    max-width: 50px; /* Maksimal størrelse på logoen*/
-    height: auto; /* Beholder proporsjonene til bildet */
-    display: block; /* Gjør logoen til et blokkelement*/
-    margin-bottom: 20px; /* Avstand fra innholdet under*/
-    border-radius: 50%;
-}
 
 
 .bilde-venstre-for-tekst-forhold{
@@ -177,15 +160,27 @@ footer {
 /* Gjør sidebar responsiv med media queries */
 @media (max-width: 768px) {
     .sidebar {
-        width: 20%; /* På smalere skjermer blir sidebaren bredere */
+        width: 30%; /* På mellomstore skjermer blir sidebaren bredere */
     }
+    .sidebar ul li a {
+        font-size: 1.2em;
+    }
+    .link-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
 
 
 }
 
 @media (max-width: 480px) {
     .sidebar {
-        width: 20%; /* Enda bredere sidebar på veldig små skjermer */
+        width: 40%; /* Enda bredere sidebar på veldig små skjermer */
+    }
+
+    .sidebar ul li a {
+        font-size: 1em;
     }
 
     .link-container  {
