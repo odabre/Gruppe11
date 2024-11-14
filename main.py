@@ -31,21 +31,20 @@ def receive_data():
 
 
 
-tds_liste_synkron = []
+tds_liste = []
 timestamp_tds = []
-tds_verdi_graf = 2
 def generate_data():
-        global data_graf_tds
+        global data_tds
         while True:
-            tds_verdi_graf = esp32_data['tdsverdi']
-            tds_liste_synkron.append(tds_verdi_graf)
+            ny_tds_verdi = random.randint(-10,10)
+            tds_liste.append(ny_tds_verdi)
             timestamp_tds.append(datetime.datetime.now().strftime("%H:%M:%S"))
-            if len(tds_liste_synkron)>100:
-                tds_liste_synkron.pop(0)
+            if len(tds_liste)>100:
+                tds_liste.pop(0)
                 timestamp_tds.pop(0)
             
-            data_graf_tds = {
-                "tds": tds_liste_synkron,
+            data_tds = {
+                "tds": tds_liste,
                 "timestamp": timestamp_tds
                 }
             time.sleep(2)
@@ -179,7 +178,7 @@ def sensor_func():
 @app.route('/download_tds_csv')
 def download_tds_csv():
     # Generer DataFrame
-    tds_liste_fil = pd.DataFrame(data_graf_tds)
+    tds_liste_fil = pd.DataFrame(data_tds)
 
     # Lagre DataFrame som CSV i minnet (StringIO)
     csv_data_tds = BytesIO()  
@@ -193,10 +192,10 @@ def download_tds_csv():
 def update_tds():
     # Genererer et tilfeldig tall (eller annen dynamisk data)
     # Returnerer dataen i JSON-format
-    return jsonify(data_graf_tds)
+    return jsonify(data_tds)
 @app.route('/load_tds')
 def load_tds():
-    return jsonify(data_graf_tds)
+    return jsonify(data_tds)
 
 
 

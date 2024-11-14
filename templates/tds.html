@@ -117,12 +117,12 @@
                         }
                         return response.json();
                     })
-                    .then(data_tds_graf => {
-                        console.log('Data lastet inn:', data_tds_graf);
+                    .then(data_tds => {
+                        console.log('Data lastet inn:', data_tds);
 
                         // Initialiser grafen med hele datasettet
-                        myChart.data.labels = data_tds_graf.timestamp;  // Hele x-aksen
-                        myChart.data.datasets[0].data = data_tds_graf.tds;  // Hele y-aksen
+                        myChart.data.labels = data_tds.timestamp;  // Hele x-aksen
+                        myChart.data.datasets[0].data = data_tds.tds;  // Hele y-aksen
                         myChart.update();  // Oppdater grafen med de initiale dataene
 
                         // Sett isInitialLoadComplete til true når første innlasting er ferdig
@@ -152,8 +152,8 @@
                         }
                         return response.json();
                     })
-                    .then(data_tds_graf => {
-                        console.log('Ny data mottatt:', data_tds_graf);
+                    .then(data_tds => {
+                        console.log('Ny data mottatt:', data_tds);
 
                         const maxDataPoints = 20;  // Maks antall punkter på grafen
 
@@ -164,8 +164,8 @@
                         }
 
                         // Legg til den nye verdien
-                        const newTimestamp = data_tds_graf.timestamp[data_tds_graf.timestamp.length - 1];
-                        const newtds = data_tds_graf.tds[data_tds_graf.tds.length - 1];
+                        const newTimestamp = data_tds.timestamp[data_tds.timestamp.length - 1];
+                        const newtds = data_tds.tds[data_tds.tds.length - 1];
 
                         // Legg til nyeste verdier til grafen
                         myChart.data.labels.push(newTimestamp);  // Legg til nytt tidsstempel
