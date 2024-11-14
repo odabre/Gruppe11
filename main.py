@@ -16,7 +16,7 @@ from threading import Thread
 
 app = Flask(__name__)
 
-esp32_data = {"temp": None, "tdsverdi": None}
+esp32_data = {"temperature": None, "tdsverdi": None}
 tds_data = []
 
 # Rute for å motta data fra ESP32
@@ -26,6 +26,7 @@ def receive_data():
     data = request.json  # Hent JSON-data fra forespørselen
     if data:  # Hvis det er data i forespørselen
         esp32_data['tdsverdi'] = data.get('tdsverdi')  # Oppdater fuktighet
+        esp32_data['temperature'] = data.get('temperature')
         return jsonify({"message": "Data received successfully"}), 200  # Send suksessmelding
     return jsonify({"message": "No data received"}), 400  # Send feilmelding hvis ingen data
 
@@ -36,10 +37,10 @@ timestamp_tds = []
 def generate_data():
         global data_tds
         while True:
-            ny_tds_verdi = random.randint(-10,10)
+            ny_tds_verdi = esp32_data['tdsverdi']
             tds_liste.append(ny_tds_verdi)
             timestamp_tds.append(datetime.datetime.now().strftime("%H:%M:%S"))
-            if len(tds_liste)>100:
+            if len(tds_liste)>20:
                 tds_liste.pop(0)
                 timestamp_tds.pop(0)
             
@@ -58,10 +59,10 @@ temperatur_verdi_graf = 2
 def generate_data_temperatur():
         global data_graf_temperatur
         while True:
-            temperatur_verdi_graf =  random.randint(-10,10)
+            temperatur_verdi_graf =  esp32_data['temperature']
             temperatur_liste_synkron.append(temperatur_verdi_graf)
             timestamp_temperatur.append(datetime.datetime.now().strftime("%H:%M"))
-            if len(temperatur_liste_synkron)>100:
+            if len(temperatur_liste_synkron)>20:
                 temperatur_liste_synkron.pop(0)
                 timestamp_temperatur.pop(0)
             
@@ -83,7 +84,7 @@ def generate_data_turbiditet():
             turbiditet_verdi_graf =  random.randint(-10,10)
             turbiditet_liste_synkron.append(turbiditet_verdi_graf)
             timestamp_turbiditet.append(datetime.datetime.now().strftime("%d-%m %H:%M"))
-            if len(turbiditet_liste_synkron)>100:
+            if len(turbiditet_liste_synkron)>20:
                 turbiditet_liste_synkron.pop(0)
                 timestamp_turbiditet.pop(0)
             
@@ -105,7 +106,7 @@ def generate_data_ph():
             ph_verdi_graf =  random.randint(-10,10)
             ph_liste_synkron.append(ph_verdi_graf)
             timestamp_ph.append(datetime.datetime.now().strftime("%H:%M:%S"))
-            if len(ph_liste_synkron)>100:
+            if len(ph_liste_synkron)>20:
                 ph_liste_synkron.pop(0)
                 timestamp_ph.pop(0)
             
