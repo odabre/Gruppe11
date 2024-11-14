@@ -71,6 +71,34 @@ p.bold {
 }
 
 
+.bilde-venstre-for-tekst-forhold{
+    display: flex; 
+    align-items: center;
+    gap: 20px; /* Avstand mellom bildet og tekst*/
+    max-width: 2000px;
+    margin-bottom: 20px; /*avstand til bunnen*/
+}
+
+.bilde-venstre-for-tekst-forhold img {
+    max-width: 250px; /*Bildets max størrelse*/
+    height: auto;   /* Høyden følger bredden*/
+}
+
+.bilde-venstre-for-tekst-forhold p{
+    flex: 1; /* Teksten bruker resten av plassen*/
+    text-align: left; /* Setter teksten til venstre */
+}
+
+.bilde-høyre-for-tekst-forhold p{
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
 /* Sidebar*/
 .sidebar {
     display: flex;

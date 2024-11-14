@@ -7,8 +7,6 @@ import pandas as pd
 import datetime
 import csv
 import random
-import chello
-import oda
 import os
 from io import StringIO
 from io import BytesIO
