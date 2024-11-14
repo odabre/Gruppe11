@@ -103,7 +103,7 @@ ph_verdi_graf = 2
 def generate_data_ph():
         global data_graf_ph
         while True:
-            ph_verdi_graf =  random.randint(-10,10)
+            ph_verdi_graf =  7
             ph_liste_synkron.append(ph_verdi_graf)
             timestamp_ph.append(datetime.datetime.now().strftime("%H:%M:%S"))
             if len(ph_liste_synkron)>20:
