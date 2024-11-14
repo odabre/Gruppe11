@@ -11,6 +11,7 @@ body {
     display: flex;
     flex: 1; /* Gjør at .main strekker seg for å fylle ledig plass */
     width: 100%;
+    height: 100%;
 }
 
 .content {
@@ -58,12 +59,12 @@ p.bold {
     display: flex; 
     align-items: center;
     gap: 20px; /* Avstand mellom bildet og tekst*/
-    max-width: 800px;
-    margin-bottom: 20px; /*avstand til bunnen*/
+    width: 100%;
 }
 
 .bilde-venstre-for-tekst-forhold img {
-    max-width: 250px; /*Bildets max størrelse*/
+    width: 60%;
+    max-width: 500px; /*Bildets max størrelse*/
     height: auto;   /* Høyden følger bredden*/
 }
 
