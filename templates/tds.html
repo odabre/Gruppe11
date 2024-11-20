@@ -122,7 +122,8 @@
                         console.log('Data lastet inn:', data_tds);
 
                         // Initialiser grafen med hele datasettet
-                        myChart.data.labels = data_tds.timestamp;  // Hele x-aksen
+                        const indekser = data_tds.tds.map((_, index) => index);
+                        myChart.data.labels = indekser;  // Hele x-aksen
                         myChart.data.datasets[0].data = data_tds.tds;  // Hele y-aksen
                         myChart.update();  // Oppdater grafen med de initiale dataene
 
@@ -165,11 +166,12 @@
                         }
 
                         // Legg til den nye verdien
+                        const newIndex = myChart.data.labels.length;
                         const newTimestamp = data_tds.timestamp[data_tds.timestamp.length - 1];
                         const newtds = data_tds.tds[data_tds.tds.length - 1];
 
                         // Legg til nyeste verdier til grafen
-                        myChart.data.labels.push(newTimestamp);  // Legg til nytt tidsstempel
+                        myChart.data.labels.push(newIndex);  // Legg til nytt tidsstempel
                         myChart.data.datasets[0].data.push(newtds);  // Legg til ny tdsverdi
 
                         myChart.update();  // Oppdater grafen

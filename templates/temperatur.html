@@ -96,9 +96,10 @@
                     })
                     .then(data_temperatur_graf => {
                         console.log('Data lastet inn:', data_temperatur_graf);
-
+                        const indekser = data_temperatur_graf.temperatur.map((_, index) => index);
                         // Initialiser grafen med hele datasettet
-                        myChart.data.labels = data_temperatur_graf.timestamp;  // Hele x-aksen
+                        myChartikkjeibruk.data.labels = data_temperatur_graf.timestamp;  // Hele x-aksen
+                        myChart.data.labels=indekser
                         myChart.data.datasets[0].data = data_temperatur_graf.temperatur;  // Hele y-aksen
                         myChart.update();  // Oppdater grafen med de initiale dataene
 
@@ -116,7 +117,7 @@
                     // Sjekk om vi er ferdig med å laste initial data
                     if (isInitialLoadComplete) {
                         // Start å oppdatere grafen med nye data hvert 2. sekund (for eksempel)
-                        setInterval(update_chart, 60000);
+                        setInterval(update_chart, 2000);
                     }
                 }
 
@@ -139,13 +140,14 @@
                             myChart.data.labels.shift();  // Fjern eldste tidsstempel
                             myChart.data.datasets[0].data.shift();  // Fjern eldste temperaturverdi
                         }
-
+                        const newIndex = myChart.data.labels.length;
                         // Legg til den nye verdien
-                        const newTimestamp = data_temperatur_graf.timestamp[data_temperatur_graf.timestamp.length - 1];
+                        const newTimestamp2 = data_temperatur_graf.timestamp[data_temperatur_graf.timestamp.length - 1];
                         const newTemperatur = data_temperatur_graf.temperatur[data_temperatur_graf.temperatur.length - 1];
+                        const newTimestamp = xverdier[xverdier.length - 1];
 
                         // Legg til nyeste verdier til grafen
-                        myChart.data.labels.push(newTimestamp);  // Legg til nytt tidsstempel
+                        myChart.data.labels.push(newIndex);  // Legg til nytt tidsstempel
                         myChart.data.datasets[0].data.push(newTemperatur);  // Legg til ny temperaturverdi
 
                         myChart.update();  // Oppdater grafen

@@ -37,7 +37,7 @@ timestamp_tds = []
 def generate_data():
         global data_tds
         while True:
-            ny_tds_verdi = esp32_data['tdsverdi']
+            ny_tds_verdi =random.randint(0,10)
             tds_liste.append(ny_tds_verdi)
             timestamp_tds.append(datetime.datetime.now().strftime("%H:%M:%S"))
             if len(tds_liste)>20:
@@ -70,7 +70,7 @@ def generate_data_temperatur():
                 "temperatur": temperatur_liste_synkron,
                 "timestamp": timestamp_temperatur
                 }
-            time.sleep(60)
+            time.sleep(2)
 thread = Thread(target=generate_data_temperatur)
 thread.daemon = True  # Tråden stopper når Flask stopper
 thread.start()

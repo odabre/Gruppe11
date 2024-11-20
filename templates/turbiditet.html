@@ -93,6 +93,7 @@
                         console.log('Data lastet inn:', data_turbiditet_graf);
 
                         // Initialiser grafen med hele datasettet
+                        const indekser = data_turbiditet_graf.turbiditet.map((_, index) => index);
                         myChart.data.labels = data_turbiditet_graf.timestamp;  // Hele x-aksen
                         myChart.data.datasets[0].data = data_turbiditet_graf.turbiditet;  // Hele y-aksen
                         myChart.update();  // Oppdater grafen med de initiale dataene
@@ -136,11 +137,12 @@
                         }
 
                         // Legg til den nye verdien
+                        const newIndex = myChart.data.labels.length-1;
                         const newTimestamp = data_turbiditet_graf.timestamp[data_turbiditet_graf.timestamp.length - 1];
                         const newturbiditet = data_turbiditet_graf.turbiditet[data_turbiditet_graf.turbiditet.length - 1];
 
                         // Legg til nyeste verdier til grafen
-                        myChart.data.labels.push(newTimestamp);  // Legg til nytt tidsstempel
+                        myChart.data.labels.push(newIndex);  // Legg til nytt tidsstempel
                         myChart.data.datasets[0].data.push(newturbiditet);  // Legg til ny turbiditetverdi
 
                         myChart.update();  // Oppdater grafen
